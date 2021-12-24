@@ -1,56 +1,119 @@
-﻿using System;
+using System;
 
 namespace Exam
 {
     interface Lamp
     {
+        string type();
+        string producer();
+        string power { get; }
+        string view();
+       string  number { get; }
 
-        string type { get; set; }
-        string producer { get; set; }
-        string power { get; set; }
-        string view { get; set; }
-        int number { get; set; }
+        void Printl();
+        void ChangeP();
     }
     interface Camera
     {
-        string type { get; set; }
-        string producer { get; set; }
-        string lightsensitivity { get; set; }
-
-
+        string typec();
+        string producerc();
+        string lightsensitivity { get; }
+        void Printc();
+        void ChangeS();
     }
     class PhotoStudio : Lamp, Camera
     {
-      
-        public string type { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string producer { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string power { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string view { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int number { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string lightsensitivity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void descriptionlamp(string type, string producer, string power, string view, int number)
+        protected int r { get; set; }
+        protected int k { get; set; }
+        protected int i { get; set; }
+        public PhotoStudio(int r, int k, int i)
         {
-            Lamp[] des = { ("Люмінісцентна", "Україна", "700 люменів", "кругова", 2) }: base( type, producer, power, view, number);
-            foreach (Lamp l in des)
-            {
-                l.descriptionlamp();
-            }
-            Console.WriteLine();
-        }
-        public void descriptioncamera()
-        {
-            Camera[] des = { ("Оптична", "Україна", "висока") }: base(type, producer, lightsensitivity);
-            foreach (Camera c in des)
-            {
-                c.descriptioncamera();
-            }
-            Console.WriteLine();
+            this.r = r;
+            this.k = k;
+            this.i = i;
         }
 
+        public string type()
+        {
+            return "Type lamp: FLM-200";
+        }
+        public string producer()
+        {
+            return "Producer lamp: Ukraine";
+        }
+        public string power
+        {
+            get
+            {
+                return $"Power in lumen:{r} ";
+            }
+        }
+        public string view()
+        {
+            return "View: Luminescent";
+        }
 
-        
+        public string number
+        {
+            get
+            {
+                return $"Numbers: {k} ";
+            }
+        }
+        public string typec()
+        {
+            return "Type camera: AHD ";
+        }
+        public string producerc()
+        {
+            return "Producer camera: Ukraine";
+        }
+        public string lightsensitivity
+        {
+            get
+            {
+                return $"Light sensitivity:{i} ";
+            }
+        }
+        public void Printl()
+        {
+            Console.WriteLine($"{type()}\n{producer()}\n{power}\n{view()}\n");
+        }
+        public void Printc()
+        {
+            Console.WriteLine($"{typec()}\n{producerc()}\n{lightsensitivity}\n");
+        }
+        public void ChangeP()
+        {
+            Console.WriteLine("Input the power: ");
+            r =Convert.ToInt32(Console.ReadLine ());
+        }
+        public void ChangeS()
+        {
+            Console.WriteLine("Input the sensitivity: ");
+            i = Convert.ToInt32(Console.ReadLine());
+        }
+
+        static void Main(string[] args)
+        {
+            PhotoStudio[] foto = { new PhotoStudio(1200, 3, 200), new PhotoStudio(1600, 1, 1600) };
+            foreach (PhotoStudio p in foto)
+            {
+                p.Printl();
+                p.Printc();
+                Console.WriteLine("If want change power print p:");
+                if (Console.ReadLine() == "p")
+                {
+                    p.ChangeP();
+                    p.Printl();
+                }
+                Console.WriteLine("If want change sensitivity print s:");
+                if (Console.ReadLine() == "s")
+                {
+                    p.ChangeS();
+                    p.Printc();
+                }
+            }
+        }
     }
-
- 
 }
